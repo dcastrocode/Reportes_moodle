@@ -1,12 +1,33 @@
-# React + Vite
+# Reportes de cohortes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interfaz React y plugin local de Moodle para exportar la estructura de las cohortes.
 
-Currently, two official plugins are available:
+## Funcionalidad
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Exportación individual inmediata.
+- Exportación completa en segundo plano mediante una tarea ad hoc.
+- Un único libro XLSX con hoja de resumen y una hoja por cohorte.
+- Progreso persistente y recuperación del estado al recargar la página.
+- Descarga protegida mediante la File API de Moodle.
+- Bloqueo de exportaciones completas simultáneas.
+- Eliminación automática de archivos después de 48 horas.
 
-## Expanding the ESLint configuration
+## Desarrollo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```shell
+npm run dev
+npm run lint
+npm run build
+```
+
+La compilación se genera directamente en:
+
+```text
+backend/public/local/reportes/dist
+```
+
+## Instalación en Moodle
+
+Copie `backend/public/local/reportes` en `local/reportes` dentro de Moodle y ejecute la actualización de plugins. El cron de Moodle debe ejecutarse al menos una vez por minuto para procesar la cola.
+
+También se genera un paquete instalable en `release/local_reportes-1.0.0.zip`.
